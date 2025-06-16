@@ -22,5 +22,6 @@ public class Employee {
 	private LocalDate departmentJoinDate;
 	private boolean isActive = true;
 	private boolean isEligibleForPromotion = false;
+	private boolean kafkaSendFailed = false;
 
 }
