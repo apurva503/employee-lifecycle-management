@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "f4dced33-648d-4dbf-a1bb-4a1cab4e3d29",
+		"name": "employee-lifecycle-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45952555",
+		"_collection_link": "https://apurva-9446856.postman.co/workspace/Apurva's-Workspace~79fb5298-a223-48fd-89e3-b581df6d8b66/collection/45952555-f4dced33-648d-4dbf-a1bb-4a1cab4e3d29?action=share&source=collection_link&creator=45952555"
+	},
+	"item": [
+		{
+			"name": "update hcm record",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"goalsCompleted\": true,\r\n  \"departmentJoinDate\": \"2013-01-01\",\r\n  \"employeeId\": 153,\r\n  \"experienceInYears\": 10,\r\n  \"clientAppreciation\": true,\r\n  \"eventType\": \"hcm.updated\",\r\n  \"isActive\": true,\r\n  \"roleJoinDate\": \"2013-06-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/hcm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"hcm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get hcm record",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/hcm/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"hcm",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
