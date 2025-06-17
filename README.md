@@ -1,9 +1,12 @@
 🧾 **Project Overview**
 
-This system manages the employee lifecycle using a Kafka-based microservices architecture.
-It includes the following services:
-  **EmployeeService**: Handles employee creation, updates, and status changes.
-  **HcmService**: Manages human capital management (HCM) data.
-  **PromotionService**: Evaluates promotion eligibility based on HCM events.
+This project is a microservices-based system for managing employee lifecycle events. 
+It includes:
+EmployeeService – Manages employee records via REST APIs and publishes events to Kafka.
+HcmService – Manages employee HCM data by consuming Kafka events.
+PromotionService – Evaluates promotion eligibility using business rules and HCM data from Kafka.
 
-Kafka is used for asynchronous event-driven communication between services.
+** Architecture**
+High-Level Diagram
+        ![image](https://github.com/user-attachments/assets/0a1ca45c-1f51-4a4d-894b-58e9101b13d6)
+
