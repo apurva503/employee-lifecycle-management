@@ -18,7 +18,7 @@ Single Responsibility Principle for services
 Resilience via retry
 
 ** **API Usage Instructions****
-Use swagger UI to interact with the EmployeeService APIs: (http://<EMPLOYEE-SERVICE-HOST>:<PORT>/swagger-ui/index.html#/employee-controller/all)
+Use swagger UI to interact with the EmployeeService APIs: (http://{EMPLOYEE-SERVICE-HOST}:{PORT}/swagger-ui/index.html#/employee-controller/all)
 Create Employee
 Update Employee
 Deactivate Employee
