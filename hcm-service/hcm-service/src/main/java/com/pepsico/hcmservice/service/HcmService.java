@@ -23,7 +23,8 @@ public class HcmService {
         record.setEmployeeId(employeeId);
         record.setActive(true);
         record.setCreatedAt(LocalDate.now());
-
+        record.setDepartmentJoinDate(LocalDate.now());
+        record.setRoleJoinDate(LocalDate.now());
         HcmRecord saved = repository.save(record);
 
         // 🔴 Publish creation event

@@ -24,7 +24,8 @@ public class EmployeeService {
 		Employee e = new Employee();
 		e.setName(dto.name());
 		e.setDepartment(dto.department());
-		e.setDepartmentJoinDate(LocalDate.now());
+		//e.setDepartmentJoinDate(LocalDate.now());
+		e.setDepartmentJoinDate(LocalDate.now().minusYears(5)); // For testing purposes, set to 1 year ago
 		e.setActive(true);
 		Employee saved = repo.save(e);
 		kafkaProducer.publishEmployeeEvent("employee.created", saved);

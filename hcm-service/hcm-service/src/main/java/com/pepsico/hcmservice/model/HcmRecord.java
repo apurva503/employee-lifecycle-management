@@ -22,4 +22,7 @@ public class HcmRecord {
 	private boolean active;
 
 	private LocalDate createdAt;
+	private LocalDate departmentJoinDate;
+	private LocalDate roleJoinDate;
+
 }

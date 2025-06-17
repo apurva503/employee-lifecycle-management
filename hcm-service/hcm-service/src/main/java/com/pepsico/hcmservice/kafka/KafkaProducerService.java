@@ -7,6 +7,8 @@ import com.pepsico.hcmservice.model.HcmRecord;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import org.springframework.retry.annotation.Retryable;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.retry.annotation.Backoff;
 import org.slf4j.Logger;
@@ -30,17 +32,21 @@ public class KafkaProducerService {
     @Retryable(value = {Exception.class}, maxAttempts = 3, backoff = @Backoff(delay = 2000))
     @CircuitBreaker(name = "hcmKafkaProducerCB", fallbackMethod = "handleKafkaFailure")
     public void publishHcmEvent(String eventType, HcmRecord record) {
-        Map<String, Object> message = Map.of(
-            "eventType", eventType,
-            "employeeId", record.getEmployeeId(),
-            "experienceInYears", record.getYearsOfExperience(),
-            "goalsCompleted", record.isGoalsCompleted(),
-            "clientAppreciation", record.isAppreciatedByClient(),
-            "isActive", record.isActive()
-        );
+    	 DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+
+    	 Map<String, Object> message = new HashMap<>();
+    	 message.put("eventType", eventType);
+    	 message.put("employeeId", record.getEmployeeId());
+    	 message.put("experienceInYears", record.getYearsOfExperience());
+    	 message.put("goalsCompleted", record.isGoalsCompleted());
+    	 message.put("clientAppreciation", record.isAppreciatedByClient());
+    	 message.put("isActive", record.isActive());
+    	 message.put("departmentJoinDate", record.getDepartmentJoinDate() != null ? record.getDepartmentJoinDate().format(formatter) : null);
+         message.put("roleJoinDate", record.getRoleJoinDate() != null ? record.getRoleJoinDate().format(formatter) : null);
+
         kafkaTemplate.send(topic, String.valueOf(record.getEmployeeId()), message);
     }
     public void handleKafkaFailure(String eventType, HcmRecord record, Throwable throwable) {
-        log.error("Kafka publish failed for employeeId={} in HCM service. Error: {}", record.getEmployeeId(), throwable.getMessage());
+        log.error("Kafka publish failed for employeeId={} in HCM service. Error: {}", record.getEmployeeId(), throwable);
     }
 }
