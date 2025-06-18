@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import com.pepsico.promotionservice.dto.HcmEvent;
 import com.pepsico.promotionservice.service.PromotionEvaluator;
 
+/**
+ * Kafka consumer service for handling HCM events.
+ * Listens to HCM events and triggers promotion evaluation.
+ */
 @Service
 public class HcmEventConsumer {
 	private final PromotionEvaluator evaluator;
@@ -17,6 +21,10 @@ public class HcmEventConsumer {
         this.evaluator = evaluator;
     }
 
+    /**
+     * Consumes HCM events from Kafka and triggers promotion evaluation.
+     * @param event the HCM event received from Kafka
+     */
     @KafkaListener(topics = "${kafka.topic.hcm-events}", groupId = "promotion-service-group")
     public void consume(HcmEvent event) {
         log.info("Received HCM Event: {}", event);

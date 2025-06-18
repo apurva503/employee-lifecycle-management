@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.pepsico.promotionservice.dto.HcmEvent;
 import com.pepsico.promotionservice.kafka.EmployeeProducer;
-import com.pepsico.promotionservice.kafka.HcmEventConsumer;
 
+/**
+ * Service for evaluating employee promotion eligibility based on HCM events.
+ * Applies business rules and publishes the result via Kafka.
+ */
 @Service
 public class PromotionEvaluator {
     private static final Logger log = LoggerFactory.getLogger(PromotionEvaluator.class);
@@ -21,6 +24,11 @@ public class PromotionEvaluator {
         this.producer = producer;
     }
 
+    /**
+     * Evaluates promotion eligibility for an employee based on HCM event data.
+     * Publishes the result to Kafka.
+     * @param event the HCM event containing employee data
+     */
     public void evaluatePromotion(HcmEvent event) {
     	 if (event.getRoleJoinDate() == null || event.getDepartmentJoinDate() == null) {
     	        log.warn("Missing join dates for employeeId={}", event.getEmployeeId());
