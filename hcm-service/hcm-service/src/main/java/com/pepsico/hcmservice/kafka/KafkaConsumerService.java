@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.pepsico.hcmservice.service.HcmService;
 
+/**
+ * Kafka consumer service for handling employee-related events.
+ * Listens to employee events and triggers HCM record creation or deactivation.
+ */
 @Service
 public class KafkaConsumerService {
 	private static final Logger log = LoggerFactory.getLogger(KafkaConsumerService.class);
@@ -19,6 +23,10 @@ public class KafkaConsumerService {
 		this.hcmService = hcmService;
 	}
 
+	/**
+	 * Handles employee events received from Kafka and triggers appropriate HCM actions.
+	 * @param message the event message from Kafka
+	 */
 	@KafkaListener(topics = "${kafka.topic.employee-events}", groupId = "hcm-group")
 	public void handleEmployeeEvents(Map<String, Object> message) {
 		log.info("Received employee event: {}", message);
