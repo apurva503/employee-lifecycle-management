@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "f4dced33-648d-4dbf-a1bb-4a1cab4e3d29",
+		"name": "employee-lifecycle-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45952555",
+		"_collection_link": "https://apurva-9446856.postman.co/workspace/Apurva's-Workspace~79fb5298-a223-48fd-89e3-b581df6d8b66/collection/45952555-f4dced33-648d-4dbf-a1bb-4a1cab4e3d29?action=share&source=collection_link&creator=45952555"
+	},
+	"item": [
+		{
+			"name": "update hcm record",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"goalsCompleted\": true,\r\n  \"departmentJoinDate\": \"2013-01-01\",\r\n  \"employeeId\": 153,\r\n  \"experienceInYears\": 10,\r\n  \"clientAppreciation\": true,\r\n  \"eventType\": \"hcm.updated\",\r\n  \"isActive\": true,\r\n  \"roleJoinDate\": \"2013-06-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/hcm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"hcm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get hcm record",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/hcm/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"hcm",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"admin\", \"password\": \"admin123\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway-create employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIzMDM4MiwiZXhwIjoxNzUwMjMzOTgyfQ.ZBny2CpCXMxt-PVxD3yoOyES5NhVEnnblc0UZvxWPGc"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Correlation-ID",
+						"value": "123"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Jann white\",\n  \"department\": \"IT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7070/employee-service/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"employee-service",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
