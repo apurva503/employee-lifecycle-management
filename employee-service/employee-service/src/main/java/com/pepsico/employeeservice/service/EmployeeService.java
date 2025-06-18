@@ -9,6 +9,7 @@ import com.pepsico.employeeservice.dto.EmployeeDto;
 import com.pepsico.employeeservice.kafka.KafkaProducerService;
 import com.pepsico.employeeservice.model.Employee;
 import com.pepsico.employeeservice.repository.EmployeeRepository;
+import com.pepsico.employeeservice.exception.ResourceNotFoundException;
 
 @Service
 public class EmployeeService {
@@ -20,6 +21,11 @@ public class EmployeeService {
 		this.kafkaProducer = kafkaProducer;
 	}
 
+	/**
+	 * Creates a new employee and publishes an event.
+	 * @param dto Employee data
+	 * @return the created Employee
+	 */
 	public Employee createEmployee(EmployeeDto dto) {
 		Employee e = new Employee();
 		e.setName(dto.name());
@@ -32,14 +38,25 @@ public class EmployeeService {
 		return saved;
 	}
 
+	/**
+	 * Deactivates an employee by ID and publishes an event.
+	 * @param id Employee ID
+	 * @return the updated Employee
+	 * @throws ResourceNotFoundException if employee is not found
+	 */
 	public Employee deactivateEmployee(Long id) {
-		Employee e = repo.findById(id).orElseThrow();
+		Employee e = repo.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
 		e.setActive(false);
 		Employee saved = repo.save(e);
 		kafkaProducer.publishEmployeeEvent("employee.deactivated", saved);
 		return saved;
 	}
 
+	/**
+	 * Returns all employees.
+	 * @return list of employees
+	 */
 	public List<Employee> getAllEmployees() {
 		return repo.findAll();
 	}
